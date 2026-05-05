@@ -29,4 +29,21 @@
 - len of dataset in dataloader is len(dataloader.dataset) 
 
 
+### Dropout 
+- adding mask to drop info from the neurons
+- add after the hidden layer
+- 0.2 dropout is optimal(80% retention).
+- need to update backprop when adding dropout (just need to add a new d variable with value mask * upstream gradient)
+- only use masking for training --> use model.train() for train method, model.eval() for testing. use self.training to distinguish in model definition.
+
+### Gelu
+- `c = math.sqrt(2/math.pi)
+    u = c * (x + 0.044715* (x**3))
+    tanh_u = torch.tanh(u)
+    return (0.5*x*(1+tanh_u),tanh_u,c)`
+- updation in backprop
+
+### LayerNorm
+- x_norm = (x - x_mean)/(sqrt(variance + eps))
+- for more than one hidden layers, gradients must be accumulated back until original x, so computationally expensive derivates will come for networks > 1 hidden layer.
 
